@@ -10,6 +10,7 @@ namespace PaparaFinal.Api.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
+[Authorize(Policy = "OnlyAdminUsers")]
 public class ProductsController : ControllerBase
 {
     
@@ -79,7 +80,7 @@ public class ProductsController : ControllerBase
         var products = _mapper.Map<List<ResultProductDto>>(_productService.GetProductsByCategoryName(categoryName));
         return Ok(products);
     }
-    [Authorize(Policy = "OnlyAdminUsers")]
+    
     [HttpPost("AddProductToCategory")]
     public async Task<IActionResult> AddProductToCategory(int productId, int categoryId)
     {
@@ -93,8 +94,4 @@ public class ProductsController : ControllerBase
         _productService.AddProductToCart(cartId, productId, quantity);
         return Ok("Ürün sepete eklendi.");
     }
-    //Bazı ürünler satışta olmayabilir. Bazı ürünler için yetersiz stok olabilir
-    //Ürün üzerinde stok bilgisine müdahale etmeyi sağlayacak ilgili apiler de hazırlanmalıdır.
-    //Ürünler kategori bazlı listelenebilmelidir.
-    //urünlerin kategori seçimleri admin kullanıcı tarafından yapılmalıdır.
 }

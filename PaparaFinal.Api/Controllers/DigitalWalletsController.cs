@@ -1,4 +1,5 @@
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using PaparaFinal.BusinessLayer.Abstract;
 using PaparaFinal.DtoLayer.DigitalWalletDtos;
@@ -8,6 +9,7 @@ namespace PaparaFinal.Api.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
+[Authorize(Policy = "OnlyAdminUsers")]
 public class DigitalWalletsController : ControllerBase
 {
     private readonly IDigitalWalletService _digitalWalletService;

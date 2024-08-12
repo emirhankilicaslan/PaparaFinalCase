@@ -1,4 +1,5 @@
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using PaparaFinal.BusinessLayer.Abstract;
 using PaparaFinal.DtoLayer.UserDtos;
@@ -41,6 +42,7 @@ public class UsersController : ControllerBase
     }
 
     [HttpPut]
+    [Authorize(Policy = "OnlyAdminUsers")]
     public IActionResult UpdateUser(UpdateUserDto userDto)
     {
         var mapped = _mapper.Map<User>(userDto);
@@ -49,6 +51,7 @@ public class UsersController : ControllerBase
     }
     
     [HttpDelete]
+    [Authorize(Policy = "OnlyAdminUsers")]
     public async Task<IActionResult> DeleteUser(string id)
     {
         var user = _userService.GetById(id);

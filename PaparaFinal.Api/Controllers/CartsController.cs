@@ -1,4 +1,5 @@
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using PaparaFinal.BusinessLayer.Abstract;
 using PaparaFinal.DataAccessLayer.Context;
@@ -25,6 +26,7 @@ public class CartsController : ControllerBase
     }
     
     [HttpGet]
+    [Authorize(Policy = "OnlyAdminUsers")]
     public async Task<IActionResult> GetAll()
     {
         var mapped = _mapper.Map<List<ResultCartDto>>(_cartService.GetAll());
@@ -39,6 +41,7 @@ public class CartsController : ControllerBase
     }
 
     [HttpPost]
+    [Authorize(Policy = "OnlyAdminUsers")]
     public  IActionResult CreateCart(CreateCartDto cartDto)
     {
         var mapped = _mapper.Map<Cart>(cartDto);
@@ -55,6 +58,7 @@ public class CartsController : ControllerBase
     }
     
     [HttpDelete]
+    [Authorize(Policy = "OnlyAdminUsers")]
     public async Task<IActionResult> DeleteCart(int id)
     {
         var cart = _cartService.GetById(id);

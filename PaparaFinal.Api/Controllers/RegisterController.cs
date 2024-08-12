@@ -22,7 +22,7 @@ public class RegisterController : ControllerBase
     }
     
     [HttpPost("RegisterAdminUser")]
-    //[Authorize(Policy = "OnlyAdminUsers")]
+    [Authorize(Policy = "OnlyAdminUsers")]
     public async Task<IActionResult> RegisterAdmin([FromBody] CreateUserDto userDto)
     {
         var newUser = new User

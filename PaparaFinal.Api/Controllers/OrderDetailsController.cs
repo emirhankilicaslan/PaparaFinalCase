@@ -1,4 +1,5 @@
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using PaparaFinal.BusinessLayer.Abstract;
 using PaparaFinal.DtoLayer.OrderDetailDtos;
@@ -34,6 +35,7 @@ public class OrderDetailsController : ControllerBase
     }
 
     [HttpPost]
+    [Authorize(Policy = "OnlyAdminUsers")]
     public  IActionResult CreateOrderDetail(CreateOrderDetailDto orderDetailDto)
     {
         var mapped = _mapper.Map<OrderDetail>(orderDetailDto);
@@ -42,6 +44,7 @@ public class OrderDetailsController : ControllerBase
     }
 
     [HttpPut]
+    [Authorize(Policy = "OnlyAdminUsers")]
     public IActionResult UpdateOrderDetail(UpdateOrderDetailDto orderDetailDto)
     {
         var mapped = _mapper.Map<OrderDetail>(orderDetailDto);
@@ -50,6 +53,7 @@ public class OrderDetailsController : ControllerBase
     }
     
     [HttpDelete]
+    [Authorize(Policy = "OnlyAdminUsers")]
     public async Task<IActionResult> DeleteOrderDetail(int id)
     {
         var orderDetail = _orderDetailService.GetById(id);

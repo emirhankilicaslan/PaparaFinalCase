@@ -20,10 +20,6 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Middlewares\" />
-    </ItemGroup>
-
-    <ItemGroup>
       <ProjectReference Include="..\PaparaFinal.BusinessLayer\PaparaFinal.BusinessLayer.csproj" />
       <ProjectReference Include="..\PaparaFinal.DataAccessLayer\PaparaFinal.DataAccessLayer.csproj" />
     </ItemGroup>

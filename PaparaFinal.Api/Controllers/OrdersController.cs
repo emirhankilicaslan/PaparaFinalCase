@@ -1,4 +1,5 @@
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using PaparaFinal.BusinessLayer.Abstract;
 using PaparaFinal.DtoLayer.OrderDtos;
@@ -20,6 +21,7 @@ public class OrdersController : ControllerBase
     }
     
     [HttpGet]
+    [Authorize(Policy = "OnlyAdminUsers")]
     public async Task<IActionResult> GetAll()
     {
         var mapped = _mapper.Map<List<ResultOrderDto>>(_orderService.GetAll());
@@ -27,6 +29,7 @@ public class OrdersController : ControllerBase
     }
     
     [HttpGet("{id}")]
+    [Authorize(Policy = "OnlyAdminUsers")]
     public IActionResult GetById(int id)
     {
         var mapped = _mapper.Map<ResultOrderDto>(_orderService.GetById(id));
@@ -42,6 +45,7 @@ public class OrdersController : ControllerBase
     }
 
     [HttpPut]
+    [Authorize(Policy = "OnlyAdminUsers")]
     public IActionResult UpdateOrder(UpdateOrderDto orderDto)
     {
         var mapped = _mapper.Map<Order>(orderDto);
@@ -50,6 +54,7 @@ public class OrdersController : ControllerBase
     }
     
     [HttpDelete]
+    [Authorize(Policy = "OnlyAdminUsers")]
     public async Task<IActionResult> DeleteOrder(int id)
     {
         var order = _orderService.GetById(id);
@@ -58,6 +63,7 @@ public class OrdersController : ControllerBase
     }
     
     [HttpGet("GetPastOrders")]
+    [Authorize(Policy = "OnlyAdminUsers")]
     public async Task<IActionResult> GetPastOrders()
     {
         var mapped = _mapper.Map<List<ResultOrderDto>>(_orderService.GetPastOrders());
@@ -65,6 +71,7 @@ public class OrdersController : ControllerBase
     }
     
     [HttpGet("GetActiveOrders")]
+    [Authorize(Policy = "OnlyAdminUsers")]
     public async Task<IActionResult> GetActiveOrders()
     {
         var mapped = _mapper.Map<List<ResultOrderDto>>(_orderService.GetActiveOrders());
@@ -72,6 +79,7 @@ public class OrdersController : ControllerBase
     }
     
     [HttpPost("ChangeOrderStatusToFalse")]
+    [Authorize(Policy = "OnlyAdminUsers")]
     public async Task<IActionResult> ChangeOrderStatusToFalse(int orderId)
     {
         _orderService.ChangeOrderStatusToFalse(orderId);
